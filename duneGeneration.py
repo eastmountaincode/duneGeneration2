@@ -34,7 +34,7 @@ def load_helpful_model():
 model_helpful = load_helpful_model()
 
 st.image("duneGeneratorPic-01.png")
-
+generateButton2 = st.button("Generate review")
 def generateReview():
   validText = False
   while(validText == False):
@@ -70,7 +70,7 @@ def generateReview():
 
     
 
-def generateReview2():
+if generateButton2:
   validText = False
   while(validText == False):
     print("Generating")
@@ -78,8 +78,8 @@ def generateReview2():
                 prompt="BODY:",
                 max_length=200,
                 top_p=0.9,
-                temperature = 1.0,
-                num_beams = 2,
+                temperature = 0.9,
+                num_beams = 3,
                 repetition_penalty = 3.0)
     textList = text.split("\n")
     print(textList)
@@ -101,6 +101,17 @@ def generateReview2():
   generatedData["Rating"] = predicted_rating
   generatedData["HelpfulScore"] = predicted_helpful
 
+##  textToWrite = "#{0}\n>{1}\n{2}\n>{3}".format(generatedData["Title"],
+##                                                str(generatedData["Rating"]) + "/10",
+##                                                generatedData["Review"],
+##                                                str(generatedData["HelpfulScore"]) + " percent of people found this review helpful")
+##  textToWrite = "#" + generatedData["Title"] + "\n"
+##  textToWrite += ">" + str(generatedData["Rating"]) + "/10\n"
+##  textToWrite += generatedData["Review"] + "\n"
+##  textToWrite += ">" + str(generatedData["HelpfulScore"]) + " percent of people found this review helpful"
+##  st.markdown(textToWrite)
+##  
+
   st.header(generatedData["Title"])
   st.caption("Rating: " + str(generatedData["Rating"]) + "/10")
   st.write(generatedData["Review"])
@@ -108,7 +119,6 @@ def generateReview2():
 
 
 ##generateButton = st.button("Generate review", on_click = generateReview)
-generateButton2 = st.button("Generate review",
-                            on_click = generateReview2)
+
   
 
